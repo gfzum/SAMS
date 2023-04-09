@@ -28,11 +28,12 @@ mkdir ./gofiles/valid
 mkdir ./gofiles/valid/${namespace}_valid
 
 
+        # --gpu \
 
-CUDA_VISIBLE_DEVICES=$cpu  python train_single.py  --logfiles gofiles/logs/${namespace}.log \
+# CUDA_VISIBLE_DEVICES=$cpu  
+python train_single.py  --logfiles gofiles/logs/${namespace}.log \
         --name ${name} \
         --dataset ${namespace} \
-        --gpu \
         --trainfile training/${name}_trains_repo \
         --evalfile training/${name}_dev_repo \
         --savefiles gofiles/checkpoints/${namespace}/${namespace}_model \

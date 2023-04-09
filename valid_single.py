@@ -62,8 +62,8 @@ def create_embeddings(opts,train_ops,vocabs,checkpointer):
 
     embeddings.load_state_dict(checkpointer["embeddings"])
 
-    if opts.gpu and torch.cuda.is_available():
-        embeddings = embeddings.cuda()
+    # if opts.gpu and torch.cuda.is_available():
+    #     embeddings = embeddings.cuda()
 
     return embeddings
 
@@ -140,8 +140,8 @@ def create_models(opts,train_opts,embeddings,checkpointer,logger):
                                       train_opts.gate)
 
     model.load_state_dict(checkpointer["model"],strict=False)
-    if opts.gpu and torch.cuda.is_available():
-        model = model.cuda()
+    # if opts.gpu and torch.cuda.is_available():
+    #     model = model.cuda()
     return model
 
 def create_getlabel(opts):
@@ -212,8 +212,8 @@ def valid_single():
                 source = train_batchs[0]
                 sens = train_batchs[2]
                 source = Variable(torch.Tensor(source).long()).contiguous()
-                if opts.gpu:
-                    source = source.cuda()
+                # if opts.gpu:
+                #     source = source.cuda()
 
                 outs,out2 = model(source)
                 outscore = outs[:,:,:]

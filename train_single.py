@@ -44,8 +44,8 @@ def create_embeddings(opts,vocabs,checkpointer):
     if checkpointer is not None:
         embeddings.load_state_dict(checkpointer["embeddings"])
 
-    if opts.gpu and torch.cuda.is_available():
-        embeddings = embeddings.cuda()
+    # if opts.gpu and torch.cuda.is_available():
+    #     embeddings = embeddings.cuda()
 
     return embeddings
 
@@ -159,8 +159,8 @@ def create_eval(opts):
 
 def create_trainer(opts,checkpointer,traindataset,validdataset,vocab,model,saver,optim,logger,getlabel,calloss,evalsaver):
     criterion = create_criterion(opts)
-    if opts.gpu:
-        criterion = criterion.cuda()
+    # if opts.gpu:
+    #     criterion = criterion.cuda()
     steps = 0
     if checkpointer is None:
         steps = 0
@@ -237,8 +237,8 @@ def create_models(opts,embeddings,checkpointer,logger):
 
     if checkpointer is not None:
         model.load_state_dict(checkpointer["model"],strict=False)
-    if opts.gpu and torch.cuda.is_available():
-        model = model.cuda()
+    # if opts.gpu and torch.cuda.is_available():
+    #     model = model.cuda()
 
     if opts.multigpu:
         model=nn.DataParallel(model)

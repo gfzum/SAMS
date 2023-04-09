@@ -34,7 +34,7 @@ class Trainer(object):
                  datafrom,
                  shows=100,
                  logger=None,
-                 gpu = True,
+                 gpu = False,
                  modelfiles = None,
                  steps=0,
                  epochsteps=0,
@@ -160,9 +160,9 @@ class Trainer(object):
         source = Variable(torch.Tensor(source).long()).contiguous()
         target = Variable(torch.Tensor(target).long()).contiguous()
 
-        if self.gpu:
-            source = source.cuda()
-            target = target.cuda()
+        # if self.gpu:
+        #     source = source.cuda()
+        #     target = target.cuda()
 
 
         self.model.train()
@@ -186,7 +186,7 @@ class Trainer(object):
             starts = time.time()
             loss_epoch = []
         del loss, source, target, outs, loss_oce
-        torch.cuda.empty_cache()
+        # torch.cuda.empty_cache()
         return les,loss_steps,starts
 
     def valid_steps(self,steps):
@@ -215,9 +215,9 @@ class Trainer(object):
                 source = Variable(torch.Tensor(source).long()).contiguous()
                 target = Variable(torch.Tensor(target).long()).contiguous()
             
-                if self.gpu:
-                    source = source.cuda()
-                    target=target.cuda()
+                # if self.gpu:
+                #     source = source.cuda()
+                #     target=target.cuda()
 
                 outs = self.model(source)
 
@@ -270,8 +270,8 @@ class Trainer(object):
                 source = train_batchs[0]
                 sens = train_batchs[2]
                 source = Variable(torch.Tensor(source).long()).contiguous()
-                if self.gpu:
-                    source = source.cuda()
+                # if self.gpu:
+                #     source = source.cuda()
 
                 outs = self.model(source)
                 if self.getlabel is not None:

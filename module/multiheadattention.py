@@ -75,9 +75,9 @@ class MultiHeadAttention(nn.Module):
             window_masks = window - window_masks
         self.window_masks = window_masks
 
-        if torch.cuda.is_available():
-            self.windowmax=self.windowmax.cuda()
-            self.window_masks = self.window_masks.cuda()
+        # if torch.cuda.is_available():
+        #     self.windowmax=self.windowmax.cuda()
+        #     self.window_masks = self.window_masks.cuda()
 
 
     def forward(self, key,value,query,mask = None):
@@ -99,9 +99,9 @@ class MultiHeadAttention(nn.Module):
 
         
 
-        if torch.cuda.is_available():
-            window_masks = window_masks.cuda()
-            windowsmasknorm = windowsmasknorm.cuda()
+        # if torch.cuda.is_available():
+        #     window_masks = window_masks.cuda()
+        #     windowsmasknorm = windowsmasknorm.cuda()
         windowsmasknorm = windowsmasknorm.masked_fill( window_masks, 1)
         window_masks = window_masks.unsqueeze(0).unsqueeze(0)
         def shapes(x):

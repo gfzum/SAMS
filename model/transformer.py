@@ -92,8 +92,8 @@ class BiaffineScoreLayer(nn.Module):
         if self.midfeas:
             addones = torch.zeros(batchs , 1 , 3)
             #addones[:,:,0]=1
-            if torch.cuda.is_available():
-               addones = addones.cuda()
+            # if torch.cuda.is_available():
+            #    addones = addones.cuda()
             asw1 = torch.cat([asw,addones],-2)
             asw2 = torch.cat([addones , asw],-2)
             asw3 = torch.cat([asw1,asw2],-1)
@@ -111,8 +111,8 @@ class BiaffineScoreLayer(nn.Module):
 
         if self.segwords:
             adds = torch.ones(batchs , 1) * 2.0
-            if torch.cuda.is_available():
-                adds=adds.cuda()
+            # if torch.cuda.is_available():
+            #     adds=adds.cuda()
 
             score = torch.cat([adds.long(),score] ,-1)
             score = score.data.eq(2)
@@ -121,8 +121,8 @@ class BiaffineScoreLayer(nn.Module):
 
             window_masks = torch.tril(window).transpose(1,0)
 
-            if torch.cuda.is_available():
-                window_masks = window_masks.cuda() #to(torch.cuda.current_device())
+            # if torch.cuda.is_available():
+            #     window_masks = window_masks.cuda() #to(torch.cuda.current_device())
             score = torch.matmul(score.float(),window_masks.float())
 
             score2 = score.unsqueeze(-1).expand(batchs,maxlens,maxlens).transpose(2,1)
