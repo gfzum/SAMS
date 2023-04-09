@@ -201,7 +201,7 @@ class Dataset(object):
 
             yield ones["source"],ones["target"],ones["sentence"]
 
-        raise StopIteration()
+        # raise StopIteration()
 
 class BuffersDatasers(object):
     def __init__(self , data , batchSize = 1,tokens='sentence',cy=False,sort=False):
@@ -229,8 +229,10 @@ class BuffersDatasers(object):
         return self
 
     def __next__(self):
+        # print(self.data)
         if self.data is None or len(self.data) == 0:
-            raise StopIteration()
+            pass
+            # raise StopIteration()
         self.endstarts = False
         i = 0
         while i < len(self.data) and self.endstarts is False:
@@ -241,7 +243,7 @@ class BuffersDatasers(object):
             i = les
             yield arrs
 
-        raise StopIteration()
+        # raise StopIteration()
 
     def bufferdata(self,starts,ends):
         if self.cy:
@@ -282,7 +284,8 @@ class BuffersDatasers(object):
 
     def next(self):
         if self.data is None or len(self.data) == 0:
-            raise StopIteration()
+            print("stop in the none")
+            # raise StopIteration()
         self.endstarts = False
 
         if self.tokens == "sentence":
@@ -302,7 +305,8 @@ class BuffersDatasers(object):
                 yield ges
 
 
-        raise StopIteration()
+        print("stop after the none")
+        # raise StopIteration()
 
 
 
@@ -341,6 +345,8 @@ class FilesReaderDataset(object):
                     lines = fs1.readlines()
                     self.dataBuffers = []
                     self.datales = len(lines)
+                    # print(lines)
+                    print("-----------------------------------------------------------")
                     bufferDatas = BuffersDatasers(lines , self.batchSize,self.tokens,self.cy,self.sort)
                     buffers = []
                     for batchs in bufferDatas.next():
@@ -372,16 +378,18 @@ class FilesReaderDataset(object):
                         yield buffers
                         buffers = []
                     if self.endfiles:
-                        raise StopIteration()
+                        # raise StopIteration()
+                        pass
                 buffers.append(self.preprocessBatch(batchs))
                 yield buffers
-            raise StopIteration()
+            # raise StopIteration()
         else:
             for buffers in self.dataBuffers:
                 if self.endfiles:
-                    raise StopIteration()
+                    # raise StopIteration()
+                    pass
                 yield buffers
-            raise StopIteration()
+            # raise StopIteration()
 
     def preprocessBatch(self , batchs):
         sourceBatch = []
@@ -417,8 +425,8 @@ class FilesReaderDataset(object):
             yield batchs
             if self.endfiles:
                 self.endfiles=False
-                raise StopIteration()
-        raise StopIteration()
+                # raise StopIteration()
+        # raise StopIteration()
     @property
     def datalengs(self):
         return self.datales
@@ -430,16 +438,19 @@ class FilesReaderDataset(object):
                 for batchs in self.bufferReaders.next():
                     yield self.preprocessBatch(batchs)
                     if self.endfiles:
-                        raise StopIteration()
+                        pass
+                        # raise StopIteration()
             else:
                 for buffers in self.buildBuffers():
                     for batchs in buffers:
                         yield batchs
                         if self.endfiles:
-                            raise StopIteration( )
+                            pass
+                            # raise StopIteration( )
                     if self.endfiles:
-                        raise StopIteration()
-            raise StopIteration()
+                        pass
+                        # raise StopIteration()
+            # raise StopIteration()
         else:
             with codecs.open(self.files , "r","utf8") as fs1:
                 batchs=[]
@@ -449,9 +460,10 @@ class FilesReaderDataset(object):
                         batchs = self.preprocessBatch(batchs)
                         yield batchs
                         if self.endfiles:
-                            raise StopIteration()
+                            # raise StopIteration()
+                            pass
                         batchs = []
-                raise StopIteration( )
+                # raise StopIteration( )
 
 
 

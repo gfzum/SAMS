@@ -1,21 +1,22 @@
 cpu=0
 name=pku
 namespace=pku1
-data=training/as
+data=training/pku.utf8
 
 bash createTrainData.sh $data 2000 $name
 
 bash predatas.sh $name
 
-dropout=
-lr=
-warmup=
+dropout=0.1
+lr=0.0003
+warmup=16000
 
-layer=
-head=
-dim=
-ff=
+layer=6
+head=4
+dim=256
+ff=1024
 
+# python = D:/Programs/AnaConda/python.exe
 
 
 echo 'start training'
