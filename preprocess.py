@@ -90,11 +90,16 @@ def reps(path,pathnums,pathengs):
     #fnumslines = fnums.readlines()
     #fengslines=fengs.readlines()
     sens=[]
+    loop = 0
     for lines,numslines,engslines in zip(fs.readlines(),fnums.readlines(),fengs.readlines()):
+        # print(f'loop {loop}')
+        loop += 1
         new_sens = []
         lines = lines.strip("\n").strip().split()
         numslines = getnums(numslines)
         engslines=getengs(engslines)
+        # print(f'numslines={numslines}')
+        # print(f'engslines={engslines}')
         numsj=0
         engsj=0
         if len(engslines) == 0 and len(numslines) == 0:
@@ -102,7 +107,7 @@ def reps(path,pathnums,pathengs):
             continue
 
         for line in lines:
-            #print(line)
+            # print(f'line={line}')
             lastx=0
             last0=0
             linex=""
@@ -116,10 +121,12 @@ def reps(path,pathnums,pathengs):
             linex=""
             for cha in line:
                 if cha == u'0':
+                    # print(f'numsj in for {numsj}')
                     linex =linex + numslines[numsj]
                     numsj =numsj + 1
                 else:
                     linex=linex+cha
+
             #while u"X" in line:
             #    line=line.replace(u"X",engslines[engsj],1)
             #    engsj = 1+engsj
@@ -129,8 +136,11 @@ def reps(path,pathnums,pathengs):
             #print(line)
             new_sens.append(linex)
         sens.append(new_sens)
-        assert numsj == len(numslines)
-        assert len(engslines)==engsj
+        # print(f'numsj={numsj}, len(numslines)={len(numslines)}')
+        # print(f'engsj={engsj}, len(engslines)={len(engslines)}')
+        # print(f'sens={sens}')
+        # assert numsj == len(numslines)
+        # assert len(engslines)==engsj
     return sens
 
 

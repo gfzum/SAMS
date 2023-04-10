@@ -239,7 +239,7 @@ def valid_single():
                     sens2 = sens2 + "\n"
                     score2 = score2 + scores
                     score2 = score2 + "\n"
-                if uid % opts.showsteps == 0 and uid is not 0:
+                if uid % opts.showsteps == 0 and uid != 0:
                     logger.info("Steps {0} Cost {1}".format(str(uid),str(time.time() - starts)))
                     starts = time.time()
             logger.info("Valid finish")

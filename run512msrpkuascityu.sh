@@ -9,12 +9,12 @@ bash predatas.sh $name
 
 dropout=0.1
 lr=0.0003
-warmup=16000
+warmup=1000
 
-layer=6
-head=4
-dim=256
-ff=1024
+layer=3
+head=2
+dim=64
+ff=512
 
 # python = D:/Programs/AnaConda/python.exe
 
@@ -28,11 +28,10 @@ mkdir ./gofiles/valid
 mkdir ./gofiles/valid/${namespace}_valid
 
 
-        # --gpu \
 
-# CUDA_VISIBLE_DEVICES=$cpu  
-python train_single.py  --logfiles gofiles/logs/${namespace}.log \
+CUDA_VISIBLE_DEVICES=$cpu  python train_single.py  --logfiles gofiles/logs/${namespace}.log \
         --name ${name} \
+        --gpu \
         --dataset ${namespace} \
         --trainfile training/${name}_trains_repo \
         --evalfile training/${name}_dev_repo \
